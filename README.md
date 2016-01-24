@@ -1,3 +1,4 @@
+[![Build Status](https://circleci.com/gh/bear/tenki.svg?style=shield&circle-token=427220e3ebc3fae25d8edc0683c53d1504e1bc35)](https://circleci.com/gh/:owner/tenki.svg?style=shield&circle-token=427220e3ebc3fae25d8edc0683c53d1504e1bc35)
 [![Requirements Status](https://requires.io/github/bear/tenki/requirements.svg?branch=master)](https://requires.io/github/bear/tenki/requirements/?branch=master)
 
 # tenki
