@@ -1,3 +1,5 @@
+[![Requirements Status](https://requires.io/github/bear/tenki/requirements.svg?branch=master)](https://requires.io/github/bear/tenki/requirements/?branch=master)
+
 # tenki
 天気 weather
 
