@@ -1,4 +1,4 @@
-.PHONY: help
+.PHONY: help clean
 
 guard-%:
 	@ if [ "${${*}}" == "" ]; then \
@@ -22,19 +22,19 @@ update: guard-PYENV_VIRTUALENV_INIT
 update-all: guard-PYENV_VIRTUALENV_INIT update
 	pip install -Ur requirements-test.txt --use-mirrors
 
-clean: guard-PYENV_VIRTUALENV_INIT
+clean:
 	python manage.py clean
 
-lint: guard-PYENV_VIRTUALENV_INIT clean
+lint: clean
 	flake8 --exclude=env . > violations.flake8.txt
 
-test: guard-PYENV_VIRTUALENV_INIT lint
+test: lint
 	python manage.py test
 
-integration: guard-PYENV_VIRTUALENV_INIT clean lint
+integration: clean lint
 	py.test tests -m "integration"
 
-coverage: guard-PYENV_VIRTUALENV_INIT clean lint
+coverage: clean lint
 	coverage run --source=tenki manage.py test
 	coverage html
 	coverage report
