@@ -1,15 +1,11 @@
 machine:
   python:
     version: 2.7.10
-    version: 3.5
+    version: 3.5.1
 
 dependencies:
-  pre:
-    - pip install --upgrade pip
-    - pip install coverage
-    - pip install coveralls
   override:
-    - pip install -r requirements.txt --use-mirrors
+    - make update-all
   post:
     - python --version
     - virtualenv --version
@@ -19,6 +15,4 @@ dependencies:
 
 test:
   override:
-    - make all
-  post:
-    - pip install codecov && codecov
+    - make ci
