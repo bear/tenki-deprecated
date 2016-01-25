@@ -1,7 +1,12 @@
 *.py[cod]
+MANIFEST
 
 # C extensions
 *.so
+
+.DS_Store
+__pycache__
+.cache
 
 # Packages
 *.egg
@@ -14,11 +19,15 @@ bin
 var
 sdist
 develop-eggs
+include
 .installed.cfg
 lib
 lib64
-__pycache__
-.cache
+
+# PyCharm
+.Python
+.idea
+.installed.cfg
 
 # Installer logs
 pip-log.txt
@@ -36,8 +45,7 @@ violations.flake8.txt
 
 # Mr Developer
 .mr.developer.cfg
+
 .project
 .pydevproject
-Status API Training Shop Blog About Pricing
-
 .python-version
