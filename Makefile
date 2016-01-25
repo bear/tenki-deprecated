@@ -16,11 +16,11 @@ help:
 	@echo "  all         refresh and run all tests and generate coverage reports"
 
 update: guard-PYENV_VIRTUALENV_INIT
-	pip install -U  pip --use-mirrors
-	pip install -Ur requirements.txt --use-mirrors
+	pip install -U pip
+	pip install -Ur requirements.txt
 
 update-all: guard-PYENV_VIRTUALENV_INIT update
-	pip install -Ur requirements-test.txt --use-mirrors
+	pip install -Ur requirements-test.txt
 
 clean:
 	python manage.py clean
