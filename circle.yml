@@ -1,11 +1,21 @@
-
 machine:
   python:
     version: 2.7.10
+    version: 3.5
 
 dependencies:
   pre:
     - pip install --upgrade pip
+    - pip install coverage
+    - pip install coveralls
+  override:
+    - pip install -r requirements.txt --use-mirrors
+  post:
+    - python --version
+    - virtualenv --version
+    - pip --version
+    - uname -a
+    - lsb_release -a
 
 test:
   override:
