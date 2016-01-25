@@ -1,8 +1,8 @@
 天気 - tenki - weather
 
-[![Build Status](https://circleci.com/gh/bear/tenki.svg?style=shield&circle-token=427220e3ebc3fae25d8edc0683c53d1504e1bc35)](https://circleci.com/gh/bear/tenki.svg?style=shield&circle-token=427220e3ebc3fae25d8edc0683c53d1504e1bc35)
+[![Circle CI](https://circleci.com/gh/bear/tenki.svg?style=svg)](https://circleci.com/gh/bear/tenki)
 [![Requirements Status](https://requires.io/github/bear/tenki/requirements.svg?branch=master)](https://requires.io/github/bear/tenki/requirements/?branch=master)
-
+[![codecov.io](https://codecov.io/github/bear/tenki/coverage.svg?branch=master)](https://codecov.io/github/bear/tenki?branch=master)
 
 Small Flask Api to return the current weather for a given location
 
