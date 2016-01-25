@@ -40,7 +40,7 @@ coverage: clean lint
 	coverage report
 
 ci: clean lint integration coverage
-	source ~/bin/codecov-tenki && codecov
+	source  .codecov-token && codecov
 
 all: clean update-all lint integration coverage
 
