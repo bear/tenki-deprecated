@@ -46,7 +46,7 @@ coverage: clean lint
 	coverage report
 
 ci: clean lint integration coverage
-	CODECOV_TOKEN=$(CODECOV_TOKEN) && codecov
+	@CODECOV_TOKEN=$(CODECOV_TOKEN) && codecov
 
 all: clean update-all lint integration coverage
 
