@@ -1,4 +1,4 @@
-.PHONY: help clean
+.PHONY: help clean info
 
 ifeq ($(wildcard .codecov-token),)
   TOKEN = source .codecov-token
@@ -34,21 +34,27 @@ clean:
 lint: clean
 	flake8 --exclude=env . > violations.flake8.txt
 
+# FIXME right now integration tests are run
 test: lint
 	python manage.py test
 
-integration: clean lint
-	py.test tests -m "integration"
+integration: lint
+	python manage.py integration
 
-coverage: clean lint
-	coverage run --source=tenki manage.py test
-	coverage html
-	coverage report
+coverage: lint
+	@coverage run --source=tenki manage.py test
+	@coverage html
+	@coverage report
 
-ci: clean lint integration coverage
+info:
+	@python --version
+	@pip --version
+	@virtualenv --version
+
+ci: info clean integration coverage
 	@CODECOV_TOKEN=$(CODECOV_TOKEN) && codecov
 
-all: clean update-all lint integration coverage
+all: update-all integration coverage
 
 server: guard-PYENV_VIRTUALENV_INIT
 	python manage.py server
