@@ -1,11 +1,5 @@
 .PHONY: help clean info
 
-ifeq ($(wildcard .codecov-token),)
-  TOKEN = source .codecov-token
-else
-	TOKEN =
-endif
-
 guard-%:
 	@ if [ "${${*}}" == "" ]; then \
 	  echo "Environment variable $* not set"; \
@@ -52,7 +46,7 @@ info:
 	@virtualenv --version
 
 ci: info clean integration coverage
-	@CODECOV_TOKEN=$(CODECOV_TOKEN) && codecov
+	CODECOV_TOKEN=`cat .codecov-token` codecov
 
 all: update-all integration coverage
 
