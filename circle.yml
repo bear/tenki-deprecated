@@ -1,18 +1,12 @@
 machine:
+  services:
+    - redis
   python:
     version: 2.7.10
 
 dependencies:
   override:
-    - pip install -U pip
-    - pip install -Ur requirements.txt
-    - pip install -Ur requirements-test.txt
-  post:
-    - python --version
-    - virtualenv --version
-    - pip --version
-    - uname -a
-    - lsb_release -a
+    - make update-all
 
 test:
   override:
