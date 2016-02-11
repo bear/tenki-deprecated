@@ -1,5 +1,14 @@
 .PHONY: help install-hook clean info update server
 
+ifndef $DOCKER_IP
+  UNAME_S := $(shell uname -s)
+  ifeq ($(UNAME_S),Darwin)
+    DOCKER_IP = $(shell docker-machine ip)
+  else
+    DOCKER_IP = $(shell ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d" " -f1)
+  endif
+endif
+
 help:
 	@echo "This project assumes that an active Python virtualenv is present."
 	@echo "The following targets are available:"
@@ -34,23 +43,15 @@ lint: clean
 test: clean
 	python manage.py test
 
-integration: clean
+integration:
 	python manage.py integration
 
-coverage: clean
+coverage:
 	@coverage run --source=tenki manage.py test
 	@coverage html
 	@coverage report
 
-info:
-	@python --version
-	@pip --version
-	@virtualenv --version
-
-webtest:
-	docker-compose up -d
-	@echo DOCKER IP is ${DOCKER_IP}
-	@for i in {1..5}; do curl "http://${DOCKER_IP}:8000" && curl "http://${DOCKER_IP}:4444" && break; sleep 5; done
+webtest: docker-start
 	python manage.py webtest
 	docker-compose stop
 
@@ -62,7 +63,21 @@ docker-build:
 	docker-compose pull
 	docker-compose rm -f
 
-all: update-all integration coverage
+docker-start:
+	@echo DOCKER IP is ${DOCKER_IP}
+	#docker-compose up -d
+	@for i in {1..5}; do \
+      curl -s "http://${DOCKER_IP}:8000" -o /dev/null && \
+      curl -s "http://${DOCKER_IP}:4444" -o  /dev/null && break; \
+      sleep 5; \
+  done
+
+all: update-all integration coverage webtest
+
+info:
+	@python --version
+	@pip --version
+	@virtualenv --version
 
 server:
 	python manage.py server
