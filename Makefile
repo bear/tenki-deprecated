@@ -5,7 +5,7 @@ ifndef $DOCKER_IP
   ifeq ($(UNAME_S),Darwin)
     DOCKER_IP = $(shell docker-machine ip)
   else
-    DOCKER_IP = $(shell ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | cut -d" " -f1)
+    DOCKER_IP = $(shell ifconfig docker0 | grep 'inet addr:' | cut -d: -f2 | cut -d" " -f1)
   endif
 endif
 
