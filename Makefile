@@ -47,7 +47,7 @@ integration:
 	python manage.py integration
 
 coverage:
-	@coverage run --source=tenki manage.py test
+	DOCKER_IP=$(DOCKER_IP) coverage run --source=tenki manage.py test
 	@coverage html
 	@coverage report
 
@@ -55,7 +55,7 @@ webtest: docker-start
 	DOCKER_IP=$(DOCKER_IP) python manage.py webtest
 	docker-compose stop
 
-ci: info clean coverage integration webtest
+ci: info clean coverage webtest
 	CODECOV_TOKEN=`cat .codecov-token` codecov
 
 docker-build:
@@ -78,6 +78,7 @@ info:
 	@python --version
 	@pip --version
 	@virtualenv --version
+	@uname
 
 server:
 	python manage.py server
