@@ -9,6 +9,7 @@ from flask_restful import reqparse, Resource, Api
 
 from tenki.extensions import cache
 
+
 main = Blueprint('main', __name__)
 api  = Api(main)
 
