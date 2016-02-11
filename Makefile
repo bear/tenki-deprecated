@@ -1,12 +1,7 @@
 .PHONY: help install-hook clean info update server
 
 ifndef $DOCKER_IP
-  UNAME_S := $(shell uname -s)
-  ifeq ($(UNAME_S),Darwin)
-    DOCKER_IP = $(shell docker-machine ip)
-  else
-    DOCKER_IP = $(shell ifconfig docker0 | grep 'inet addr:' | cut -d: -f2 | cut -d" " -f1)
-  endif
+  DOCKER_IP = $(shell docker inspect --format '{{ .NetworkSettings.IPAddress }}' tenki_nginx_1)
 endif
 
 help:
