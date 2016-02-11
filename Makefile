@@ -52,7 +52,7 @@ coverage:
 	@coverage report
 
 webtest: docker-start
-	python manage.py webtest
+	DOCKER_IP=$(DOCKER_IP) python manage.py webtest
 	docker-compose stop
 
 ci: info clean coverage integration webtest
@@ -64,11 +64,11 @@ docker-build:
 	docker-compose rm -f
 
 docker-start:
-	@echo DOCKER IP is ${DOCKER_IP}
-	#docker-compose up -d
+	@echo DOCKER IP is $(DOCKER_IP)
+	docker-compose up -d
 	@for i in {1..5}; do \
-      curl -s "http://${DOCKER_IP}:8000" -o /dev/null && \
-      curl -s "http://${DOCKER_IP}:4444" -o  /dev/null && break; \
+      curl -s "http://$(DOCKER_IP):8000" -o /dev/null && \
+      curl -s "http://$(DOCKER_IP):4444" -o  /dev/null && break; \
       sleep 5; \
   done
 
