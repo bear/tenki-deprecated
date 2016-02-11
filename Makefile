@@ -54,7 +54,7 @@ webtest:
 	python manage.py webtest
 	docker-compose stop
 
-ci: info clean coverage integration webui
+ci: info clean coverage integration webtest
 	CODECOV_TOKEN=`cat .codecov-token` codecov
 
 docker-build:
