@@ -78,7 +78,7 @@ info:
 	@python --version
 	@pip --version
 	@virtualenv --version
-	@uname
+	@uname -a
 
 server:
 	python manage.py server
