@@ -1,0 +1,9 @@
+FROM bellkev/uwsgi-base:stable
+
+ADD . /opt/tenki
+
+RUN cd /opt/tenki; make update-all
+
+EXPOSE 8001
+
+CMD uwsgi --socket :8001 --chdir /opt/tenki --module uwsgi-app --callable application

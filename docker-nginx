@@ -1,0 +1,5 @@
+FROM nginx:1.9
+
+RUN rm /etc/nginx/conf.d/*
+
+ADD tenki-nginx.conf /etc/nginx/conf.d/

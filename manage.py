@@ -13,13 +13,8 @@ from flask.ext.script.commands import Command, ShowUrls, Clean
 
 from tenki import create_app
 
-def test(integration=False):
-    test_args = ['--strict', '--verbose', '--tb=long', 'tests']
-    if integration:
-        test_args.append('-kintegration')
-    else:
-        test_args.append('-k-integration')
-
+def test(integration="-k-integration", web="-k-web"):
+    test_args = ['--strict', '--verbose', '--tb=long', 'tests', integration, web]
     import pytest
     errno = pytest.main(test_args)
     sys.exit(errno)
@@ -32,7 +27,12 @@ class Test(Command):
 class Integration(Command):
     def run(self):
         self.test_suite = True
-        test(integration=True)
+        test(integration="-kintegration")
+
+class WebTests(Command):
+    def run(self):
+        self.test_suite = True
+        test(web="-kweb")
 
 # default to dev config because no one should use this in
 # production anyway
@@ -45,6 +45,7 @@ manager.add_command("show-urls", ShowUrls)
 manager.add_command("clean", Clean)
 manager.add_command("test", Test)
 manager.add_command("integration", Integration)
+manager.add_command("webtest", WebTests)
 
 
 if __name__ == "__main__":

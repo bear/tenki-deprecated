@@ -1,0 +1,20 @@
+uwsgi:
+  build: .
+  dockerfile: docker-uwsgi
+nginx:
+  build: .
+  dockerfile: docker-nginx
+  links:
+    - uwsgi
+  expose:
+    - 8000
+  ports:
+    - "8000:8000"
+chromedriver:
+  image: robcherry/docker-chromedriver:latest
+  links:
+    - nginx
+  ports:
+    - "4444:4444"
+  environment:
+    CHROMEDRIVER_WHITELISTED_IPS: ""
