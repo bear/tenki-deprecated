@@ -38,16 +38,15 @@ test: clean
 integration:
 	python manage.py integration
 
-coverage: docker-start
-	. ./wait_for_ip.sh $(eval DRIVER_IP := $(DRIVER_IP))
-	DRIVER_IP=$(DRIVER_IP) coverage run --source=tenki manage.py test
+webtest: docker-start
+	$(eval DRIVER_IP := $(shell ./wait_for_ip.sh))
+	DRIVER_IP=$(DRIVER_IP) python manage.py webtest
+	docker-compose stop
+
+coverage:
+	@coverage run --source=tenki manage.py test
 	@coverage html
 	@coverage report
-
-webtest: docker-start
-	. ./wait_for_ip.sh $(eval DRIVER_IP := $(DRIVER_IP))
-	DRIVER_IP=$(DRIVERR_IP) python manage.py webtest
-	docker-compose stop
 
 ci: info clean coverage webtest
 	CODECOV_TOKEN=`cat .codecov-token` codecov
