@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
 unamestr=`uname -s`
-if [[ "$unamestr" == 'Darwin' ]]; then
+if [ "$unamestr" == 'Darwin' ]; then
   _IP=`docker-machine ip`
   export WEB_IP="${_IP}"
   export DRIVER_IP="${_IP}"
