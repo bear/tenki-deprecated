@@ -1,9 +1,5 @@
 .PHONY: help install-hook clean info update server
 
-ifndef $DOCKER_IP
-  DOCKER_IP = $(shell docker inspect --format '{{ .NetworkSettings.IPAddress }}' tenki_nginx_1)
-endif
-
 help:
 	@echo "This project assumes that an active Python virtualenv is present."
 	@echo "The following targets are available:"
@@ -41,12 +37,20 @@ test: clean
 integration:
 	python manage.py integration
 
-coverage:
+coverage: docker-start
+	$(eval DOCKER_IP := $(shell docker-machine ip))
+	for i in {1..5}; do \
+      curl -s "http://$(DOCKER_IP):8000" -o /dev/null && curl -s "http://$(DOCKER_IP):4444" -o  /dev/null && break; \
+      sleep 5; done
 	DOCKER_IP=$(DOCKER_IP) coverage run --source=tenki manage.py test
 	@coverage html
 	@coverage report
 
 webtest: docker-start
+	$(eval DOCKER_IP := $(shell docker-machine ip))
+	@for i in {1..5}; do \
+      curl -s "http://$(DOCKER_IP):8000" -o /dev/null && curl -s "http://$(DOCKER_IP):4444" -o  /dev/null && break; \
+      sleep 5; done
 	DOCKER_IP=$(DOCKER_IP) python manage.py webtest
 	docker-compose stop
 
@@ -59,13 +63,7 @@ docker-build:
 	docker-compose rm -f
 
 docker-start:
-	@echo DOCKER IP is $(DOCKER_IP)
 	docker-compose up -d
-	@for i in {1..5}; do \
-      curl -s "http://$(DOCKER_IP):8000" -o /dev/null && \
-      curl -s "http://$(DOCKER_IP):4444" -o  /dev/null && break; \
-      sleep 5; \
-  done
 
 all: update-all integration coverage webtest
 

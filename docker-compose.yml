@@ -1,7 +1,7 @@
 uwsgi:
   build: .
   dockerfile: docker-uwsgi
-nginx:
+web:
   build: .
   dockerfile: docker-nginx
   links:
@@ -13,7 +13,7 @@ nginx:
 chromedriver:
   image: robcherry/docker-chromedriver:latest
   links:
-    - nginx
+    - web
   ports:
     - "4444:4444"
   environment:
