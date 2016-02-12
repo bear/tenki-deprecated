@@ -1,4 +1,5 @@
 .PHONY: help install-hook clean info update server
+SHELL = /bin/bash
 
 help:
 	@echo "This project assumes that an active Python virtualenv is present."
