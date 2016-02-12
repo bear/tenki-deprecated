@@ -38,20 +38,14 @@ integration:
 	python manage.py integration
 
 coverage: docker-start
-	$(eval DOCKER_IP := $(shell docker-machine ip))
-	for i in {1..5}; do \
-      curl -s "http://$(DOCKER_IP):8000" -o /dev/null && curl -s "http://$(DOCKER_IP):4444" -o  /dev/null && break; \
-      sleep 5; done
-	DOCKER_IP=$(DOCKER_IP) coverage run --source=tenki manage.py test
+	. ./wait_for_ip.sh $(eval DRIVER_IP := $(DRIVER_IP))
+	DRIVER_IP=$(DRIVER_IP) coverage run --source=tenki manage.py test
 	@coverage html
 	@coverage report
 
 webtest: docker-start
-	$(eval DOCKER_IP := $(shell docker-machine ip))
-	@for i in {1..5}; do \
-      curl -s "http://$(DOCKER_IP):8000" -o /dev/null && curl -s "http://$(DOCKER_IP):4444" -o  /dev/null && break; \
-      sleep 5; done
-	DOCKER_IP=$(DOCKER_IP) python manage.py webtest
+	. ./wait_for_ip.sh $(eval DRIVER_IP := $(DRIVER_IP))
+	DRIVER_IP=$(DRIVERR_IP) python manage.py webtest
 	docker-compose stop
 
 ci: info clean coverage webtest

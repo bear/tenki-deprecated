@@ -5,7 +5,10 @@ from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.alert import Alert
 
-host = os.environ['DOCKER_IP']
+if 'DRIVER_IP' in os.environ:
+    host = os.environ['DRIVER_IP']
+else:
+    host = ''
 
 @pytest.mark.web
 @pytest.mark.usefixtures('app')
