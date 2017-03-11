@@ -7,6 +7,7 @@ jobs:
         environment:
           FLASK_CONFIG: testing
       - image: selenium/standalone-chrome:3.1.0
+      - image: redis
     steps:
       - checkout
       - run:
