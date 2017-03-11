@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: docker:1.13.1-git
+      - image: python:2.7.12
     working_directory: ~/tenki
     steps:
       - checkout
