@@ -1,15 +1,16 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/tenki
     docker:
       - image: python:2.7.12
         environment:
           FLASK_CONFIG: testing
       - image: selenium/standalone-chrome:3.1.0
       - image: redis
+    working_directory: ~/tenki
     steps:
       - checkout
+      - setup_docker_engine
       - run:
           name: Install Dependencies
           command: make update-all
