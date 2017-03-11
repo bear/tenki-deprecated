@@ -17,7 +17,9 @@ jobs:
       - run:
           name: Run Tests
           command: make test
-
       - run:
-          name: Run Tests
+          name: docker compose
+          command: docker-compose up -d
+      - run:
+          name: Run Web Tests
           command: make webtest
