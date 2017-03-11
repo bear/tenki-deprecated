@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: compose:1.13.1-git
+      - image: docker:compose
       - image: python:2.7.12
     working_directory: ~/tenki
     steps:
