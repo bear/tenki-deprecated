@@ -9,14 +9,14 @@ jobs:
       - checkout
       - setup_docker_engine
       - run:
+          name: docker compose
+          command: docker-compose up -d
+      - run:
           name: Install Dependencies
           command: make update-all
       - run:
           name: Run Tests
           command: make test
-      - run:
-          name: docker compose
-          command: docker-compose up -d
       - run:
           name: Run Web Tests
           command: make webtest
