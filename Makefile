@@ -29,8 +29,7 @@ clean:
 	python manage.py clean
 
 lint: clean
-	@rm violations.flake8.txt
-	flake8 --exclude=env . > violations.flake8.txt
+	pycodestyle --config={toxinidir}/setup.cfg 
 
 test: clean
 	python manage.py test

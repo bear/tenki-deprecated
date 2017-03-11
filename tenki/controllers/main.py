@@ -32,4 +32,5 @@ class CurrentWeather(Resource):
 
         return current_app.weather.get(postalcode), 200
 
+
 api.add_resource(CurrentWeather, '/api/v1/weather')

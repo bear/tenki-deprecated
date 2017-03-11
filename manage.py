@@ -34,6 +34,7 @@ class WebTests(Command):
         self.test_suite = True
         test(marker="web")
 
+
 # default to dev config because no one should use this in
 # production anyway
 env = os.environ.get('TENKI_ENV', 'dev')
