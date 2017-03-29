@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-:copyright: (c) 2015-2016 by Mike Taylor
+:copyright: (c) 2015-2017 by Mike Taylor
 :license: CC0 1.0 Universal, see LICENSE for more details.
 """
 

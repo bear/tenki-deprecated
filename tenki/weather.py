@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-:copyright: (c) 2015-2016 by Mike Taylor
+:copyright: (c) 2015-2017 by Mike Taylor
 :license: CC0 1.0 Universal, see LICENSE for more details.
 """
 
 import json
 from pyowm import OWM
 
+
 class Weather():
     def __init__(self, api_key, keyBase, dbRedis):
-        self.pyOWM   = OWM(api_key)
-        self.db      = dbRedis
+        self.pyOWM = OWM(api_key)
+        self.db = dbRedis
         self.keyRoot = '%sweather-' % keyBase
 
     def clear(self, location):
@@ -23,7 +24,7 @@ class Weather():
         location: string
         returns:  dictionary
         """
-        key   = '%s%s' % (self.keyRoot, location)
+        key = '%s%s' % (self.keyRoot, location)
         value = self.db.get(key)
 
         if value is not None:

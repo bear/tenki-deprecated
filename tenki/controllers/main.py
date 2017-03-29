@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-:copyright: (c) 2015-2016 by Mike Taylor
+:copyright: (c) 2015-2017 by Mike Taylor
 :license: CC0 1.0 Universal, see LICENSE for more details.
 """
 
@@ -11,10 +11,11 @@ from tenki.extensions import cache
 
 
 main = Blueprint('main', __name__)
-api  = Api(main)
+api = Api(main)
 
 zip_parser = reqparse.RequestParser()
 zip_parser.add_argument('postalcode', default=None, location="args")
+
 
 @main.route('/')
 @cache.cached(timeout=1000)

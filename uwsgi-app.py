@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-:copyright: (c) 2009-2016 by Mike Taylor
+:copyright: (c) 2009-2017 by Mike Taylor
 :license: CC0 1.0 Universal, see LICENSE for more details.
 """
 

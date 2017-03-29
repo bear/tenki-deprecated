@@ -10,6 +10,7 @@ if 'DRIVER_IP' in os.environ:
 else:
     host = ''
 
+
 @pytest.mark.web
 @pytest.mark.usefixtures('app')
 def test_page():
