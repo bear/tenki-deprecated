@@ -50,6 +50,10 @@ coverage:
 ci: info clean coverage webtest
 	CODECOV_TOKEN=`cat .codecov-token` codecov
 
+docker-cleanup:
+	docker rm $(docker ps -q -f 'status=exited')
+	docker rmi $(docker images -q -f "dangling=true")
+
 docker-build:
 	docker-compose build
 	docker-compose pull
