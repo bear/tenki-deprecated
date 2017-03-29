@@ -3,9 +3,20 @@ jobs:
   build:
     docker:
       - image: python:2.7.12
+      - image: redis:3.0
     working_directory: ~/tenki
     steps:
       - checkout
+      - run:
+          name: Waiting for Redis to be ready
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z localhost 6379 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for Redis && exit 1
       - setup_docker_engine
       - run:
           name: Install Docker client
